@@ -1,5 +1,6 @@
-let humanChoice = getHumanChoice();
-console.log(humanChoice);
+let humanScore = 0,
+    computerScore = 0;
+
 
 //Randomly return a choice between 'Rock', 'Paper', 'Scissors'
 function getComputerChoice() {
@@ -8,11 +9,11 @@ function getComputerChoice() {
 
   switch (choice) {
     case 0:
-      return 'Rock';
+      return 'rock';
     case 1:
-      return 'Paper';
+      return 'paper';
     case 2:
-      return 'Scissors';
+      return 'scissors';
   }
 }
 
@@ -22,7 +23,7 @@ function getHumanChoice() {
 
   let choice = prompt('What do you choose: rock, papers or scissors?');
   
-  return choice.at(0).toUpperCase() + choice.slice(1).toLowerCase();
+  return choice.toLowerCase();
 }
     
 
