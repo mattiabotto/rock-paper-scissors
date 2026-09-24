@@ -1,19 +1,7 @@
-let rock = 0,
-    paper = 0,
-    scissors = 0,
-    errors = 0;
+let humanChoice = getHumanChoice();
+console.log(humanChoice);
 
-for (let i = 0; i < 100000; i++) {
-  let choice = getComputerChoice();
-  if (choice === 'Rock') rock++;
-  else if (choice === 'Paper') paper++;
-  else if (choice === 'Scissors') scissors++;
-  else errors++;
-}
-
-console.log(rock, paper, scissors, errors);
-
-//Randomly returns a choice between 'Rock', 'Paper', 'Scissors'
+//Randomly return a choice between 'Rock', 'Paper', 'Scissors'
 function getComputerChoice() {
   
   const choice = getRandomInt(3);
@@ -27,9 +15,19 @@ function getComputerChoice() {
       return 'Scissors';
   }
 }
+
+
+// Prompt for a choice and return it. Assume that the choice is legit, only handle capitalization.
+function getHumanChoice() {
+
+  let choice = prompt('What do you choose: rock, papers or scissors?');
+  
+  return choice.at(0).toUpperCase() + choice.slice(1).toLowerCase();
+}
     
 
 // Return a positive integer in the range 0 (inclusive) and max (exclusive)
 function getRandomInt(max) {
+
   return Math.floor(Math.random() * max);
 }
