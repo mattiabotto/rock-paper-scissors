@@ -1,5 +1,6 @@
 playGame();
 
+
 // Capitalize first letter of a string
 function capitalizeFirstLetter(string) {
 
@@ -22,10 +23,15 @@ function getComputerChoice() {
 }
 
 
-// Prompt for a choice and return it. Assume that the choice is legit, only handle capitalization.
-function getHumanChoice() {
+/**
+ * Prompt for a choice and return it
+ * 
+ * Assume that the choice is legit, only handle capitalization.
+ * @param {number} round - The actual round
+ */ 
+function getHumanChoice(round) {
 
-  let choice = prompt('What do you choose: rock, paper or scissors?');
+  let choice = prompt(`Round ${round}: rock, paper or scissors?`);
   
   return choice.toLowerCase();
 }
@@ -48,9 +54,12 @@ function playGame() {
   
   const ROUNDS = 5; // Change here round number
 
-  for (let i = 0; i < ROUNDS; i++){
+  alert(`Rock, Paper, Scissors: try to beat the Computer in ${ROUNDS} rounds!`);
 
-    const humanSelection = getHumanChoice();
+  for (let i = 0; i < ROUNDS; i++) {
+
+
+    const humanSelection = getHumanChoice(i + 1);
     const computerSelection = getComputerChoice();
 
     const roundWinner = playRound(humanSelection, computerSelection);
@@ -59,12 +68,9 @@ function playGame() {
     else if(roundWinner === 'Computer') computerScore++;
   }
 
-  // Output winner
-  if (humanScore === computerScore) console.log("It's a tie!");
-  else if (humanScore > computerScore) console.log('Congratulations, you won!');
-  else console.log('Oh no, Computer won!');
+  printScore(humanScore, computerScore);
+  printWinner(humanScore, computerScore);
 
-  
 
   /**
    * Play one round of rock-paper-scissors and print to the console the winner
@@ -125,5 +131,18 @@ function playGame() {
     return winner;
 
   }
-}
 
+
+  function printScore(humanScore, computerScore) {
+    console.log(`Your final score: ${humanScore}`);
+    console.log(`Computer's final score: ${computerScore}`);
+    
+  }
+
+
+  function printWinner(humanScore, computerScore) {
+    if (humanScore === computerScore) console.log("It's a tie!");
+    else if (humanScore > computerScore) console.log('Congratulations, you won!');
+    else console.log('Oh no, Computer won!');
+  }
+}
