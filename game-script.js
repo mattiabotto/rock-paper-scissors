@@ -1,11 +1,4 @@
-let humanScore = 0,
-    computerScore = 0;
-
-const humanSelection = getHumanChoice();
-const computerSelection = getComputerChoice();
-
-playRound(humanSelection, computerSelection);
-
+playGame();
 
 // Capitalize first letter of a string
 function capitalizeFirstLetter(string) {
@@ -44,63 +37,93 @@ function getRandomInt(max) {
   return Math.floor(Math.random() * max);
 }
 
-
 /**
- * Play one round of rock-paper-scissors and print to the console the winner
+ * Play a game with default of 5 rounds
  * 
- * @param {string} humanChoice - must be lowcase
- * @param {string} computerChoice - must be lowcase
- * 
- * @example
- * playRound(paper, scissors);
- * console output: 'Computer wins! Scissors beat paper'
+ * Change ROUNDS for a different amount of rounds
  */
-function playRound(humanChoice, computerChoice) {
+function playGame() {
+  let humanScore = 0,
+      computerScore = 0;
   
-  let winner;
+  const ROUNDS = 5; // Change here round number
 
-  // Determine the winner
-  if (humanChoice === computerChoice) {
-    winner = 'tie'
+  for (let i = 0; i < ROUNDS; i++){
+
+    const humanSelection = getHumanChoice();
+    const computerSelection = getComputerChoice();
+
+    const roundWinner = playRound(humanSelection, computerSelection);
+
+    if (roundWinner === 'You') humanScore++;
+    else if(roundWinner === 'Computer') computerScore++;
   }
-  else if (humanChoice === 'rock') {
-    if (computerChoice === 'paper') {
-      winner = 'Computer';
-    } else { // computerChoice is scissors
-      winner = 'You';
+
+  // Output winner
+  if (humanScore === computerScore) console.log("It's a tie!");
+  else if (humanScore > computerScore) console.log('Congratulations, you won!');
+  else console.log('Oh no, Computer won!');
+
+  
+
+  /**
+   * Play one round of rock-paper-scissors and print to the console the winner
+   * 
+   * @param {string} humanChoice - must be lowcase
+   * @param {string} computerChoice - must be lowcase
+   * @returns {string} winner - 'You', 'Computer' or 'tie'
+   * 
+   * @example
+   * playRound(paper, scissors);
+   * console output: 'Computer wins! Scissors beat paper'
+   */
+  function playRound(humanChoice, computerChoice) {
+    
+    let winner;
+
+    // Determine the winner
+    if (humanChoice === computerChoice) {
+      winner = 'tie'
     }
-  }
-  else if (humanChoice === 'paper') {
-    if (computerChoice === 'rock') {
-      winner = 'You';
-    } else { // computerChoice is scissors
-      winner = 'Computer';
+    else if (humanChoice === 'rock') {
+      if (computerChoice === 'paper') {
+        winner = 'Computer';
+      } else { // computerChoice is scissors
+        winner = 'You';
+      }
     }
-  }
-  else { // humanChoice is scissors
-    if (computerChoice === 'rock') {
-      winner = 'Computer';
-    } else { // computerChoice is paper
-      winner = 'You';
+    else if (humanChoice === 'paper') {
+      if (computerChoice === 'rock') {
+        winner = 'You';
+      } else { // computerChoice is scissors
+        winner = 'Computer';
+      }
     }
+    else { // humanChoice is scissors
+      if (computerChoice === 'rock') {
+        winner = 'Computer';
+      } else { // computerChoice is paper
+        winner = 'You';
+      }
+    }
+
+    // Output the winner with correct grammar and increment score
+    let output,
+        beat;
+    if (winner === 'You') {
+      // Ensure to print grammatically correct output
+      beat = (humanChoice === 'scissors') ? 'beat' : 'beats'; 
+      output = `You win! ${capitalizeFirstLetter(humanChoice)} ${beat} ${computerChoice}.`;
+    } else if (winner === 'Computer') {
+      beat = (computerChoice === 'scissors') ? 'beat' : 'beats';
+      output = `Computer wins! ${capitalizeFirstLetter(computerChoice)} ${beat} ${humanChoice}.`;
+    } else { // Tie
+      output = `That's a tie! Computer chose ${computerChoice}.`;
+    }
+
+    console.log(output);
+    return winner;
+
   }
-
-  // Output the winner with correct grammar and increment score
-  let output,
-      beat;
-  if (winner === 'You') {
-    // Ensure to print gramattically correct output
-    beat = (humanChoice === 'scissors') ? 'beat' : 'beats'; 
-    output = `You win! ${capitalizeFirstLetter(humanChoice)} ${beat} ${computerChoice}.`;
-    humanScore++;
-  } else if (winner === 'Computer') {
-    beat = (computerChoice === 'scissors') ? 'beat' : 'beats';
-    output = `Computer wins! ${capitalizeFirstLetter(computerChoice)} ${beat} ${humanChoice}.`;
-    computerScore++;
-  } else { // Tie
-    output = `That's a tie! Computer chose ${computerChoice}.`;
-  }
-
-  console.log(output);
-
 }
+
