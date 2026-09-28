@@ -38,9 +38,11 @@ function playGame() {
     computerScore = 0;
 
   const choiceContainer = document.querySelector('#choice-container');
+  const resultsContainer = document.querySelector('#results');
 
   // Play one round as soon as one option is clicked
   choiceContainer.addEventListener('click', (e) => { // Get choices and play one round
+
     const humanSelection = e.target.textContent.toLowerCase();
     const computerSelection = getComputerChoice();
 
@@ -52,8 +54,18 @@ function playGame() {
     printScore(humanScore, computerScore);
 
     if (humanScore === 5 || computerScore === 5) {
-      // TODO: add printing winner logic
       printWinner(humanScore, computerScore);
+
+      // Disable choice buttons
+      for (let btn of choiceContainer.children) {
+        btn.disabled = true;
+      }
+      
+      const restartBtn = document.createElement('button');
+      restartBtn.textContent = 'Play again';
+      resultsContainer.appendChild(restartBtn);
+
+      restartBtn.addEventListener('click', restartGame);
     }
   });
 
@@ -137,9 +149,29 @@ function playGame() {
     else if (humanScore > computerScore) output = 'Congratulations, you won!';
     else output = 'Oh no, Computer won!';
 
-    const container = document.querySelector('#results');
     const finalResult = document.createElement('div');
     finalResult.textContent = output;
-    container.appendChild(finalResult);
+    resultsContainer.appendChild(finalResult);
+  }
+
+  function restartGame() {
+    console.log('Entered the restart function');
+
+    // Remove restart button and final results
+    for (let i = 0; i < 2; i++) {
+      resultsContainer.lastChild.remove();
+    }
+    
+    // Resetting the score UI
+    for (let child of resultsContainer.children) {
+      child.textContent = '';
+    }
+
+    humanScore = 0;
+    computerScore = 0;
+
+    for (let btn of choiceContainer.children) {
+      btn.disabled = false;
+    }
   }
 }
