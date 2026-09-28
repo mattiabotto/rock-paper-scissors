@@ -21,19 +21,6 @@ function getComputerChoice() {
       return 'scissors';
   }
 }
-
-
-/**
- * Prompt for a choice and return it
- * 
- * Assume that the choice is legit, only handle capitalization.
- */ 
-function getHumanChoice() {
-
-  let choice = prompt(`Rock, paper or scissors?`);
-  
-  return choice.toLowerCase();
-}
     
 
 // Return a positive integer in the range 0 (inclusive) and max (exclusive)
@@ -46,14 +33,14 @@ function getRandomInt(max) {
  * Play a game
  */
 function playGame() {
+
   let humanScore = 0,
     computerScore = 0;
 
-  alert(`Rock, Paper, Scissors: try to beat the Computer!`);
-
   const choiceContainer = document.querySelector('#choice-container');
+
   // Play one round as soon as one option is clicked
-  choiceContainer.addEventListener('click', (e) => {
+  choiceContainer.addEventListener('click', (e) => { // Get choices and play one round
     const humanSelection = e.target.textContent.toLowerCase();
     const computerSelection = getComputerChoice();
 
@@ -63,12 +50,16 @@ function playGame() {
     else if(roundWinner === 'Computer') computerScore++;
 
     printScore(humanScore, computerScore);
-    printWinner(humanScore, computerScore);
+
+    if (humanScore === 5 || computerScore === 5) {
+      // TODO: add printing winner logic
+      printWinner(humanScore, computerScore);
+    }
   });
 
 
   /**
-   * Play one round of rock-paper-scissors and print to the console the winner
+   * Play one round of rock-paper-scissors and update the result into the DOM
    * 
    * @param {string} humanChoice - must be lowcase
    * @param {string} computerChoice - must be lowcase
@@ -76,7 +67,7 @@ function playGame() {
    * 
    * @example
    * playRound(paper, scissors);
-   * console output: 'Computer wins! Scissors beat paper'
+   * Output: 'Computer wins! Scissors beat paper'
    */
   function playRound(humanChoice, computerChoice) {
     
@@ -122,22 +113,33 @@ function playGame() {
       output = `That's a tie! Computer chose ${computerChoice}.`;
     }
 
-    console.log(output);
-    return winner;
-
-  }
-
-
-  function printScore(humanScore, computerScore) {
-    console.log(`Your final score: ${humanScore}`);
-    console.log(`Computer's final score: ${computerScore}`);
+    const roundResult = document.querySelector('#round-result');
+    roundResult.textContent = output;
     
+    return winner;
   }
 
+  // Changes the DOM with the updated scores
+  function printScore(humanScore, computerScore) {
 
+    const humanScoreContainer = document.querySelector('#human-score');
+    const computerScoreContainer = document.querySelector('#computer-score');
+
+    humanScoreContainer.textContent = `Your score: ${humanScore}`;
+    computerScoreContainer.textContent = `Computer's score: ${computerScore}`;
+  }
+
+  // Show the result of the game, adding an element to the DOM
   function printWinner(humanScore, computerScore) {
-    if (humanScore === computerScore) console.log("It's a tie!");
-    else if (humanScore > computerScore) console.log('Congratulations, you won!');
-    else console.log('Oh no, Computer won!');
+    let output;
+
+    if (humanScore === computerScore) output = "It's a tie!";
+    else if (humanScore > computerScore) output = 'Congratulations, you won!';
+    else output = 'Oh no, Computer won!';
+
+    const container = document.querySelector('#results');
+    const finalResult = document.createElement('div');
+    finalResult.textContent = output;
+    container.appendChild(finalResult);
   }
 }
