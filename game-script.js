@@ -27,11 +27,10 @@ function getComputerChoice() {
  * Prompt for a choice and return it
  * 
  * Assume that the choice is legit, only handle capitalization.
- * @param {number} round - The actual round
  */ 
-function getHumanChoice(round) {
+function getHumanChoice() {
 
-  let choice = prompt(`Round ${round}: rock, paper or scissors?`);
+  let choice = prompt(`Rock, paper or scissors?`);
   
   return choice.toLowerCase();
 }
@@ -44,29 +43,23 @@ function getRandomInt(max) {
 }
 
 /**
- * Play a game with default of 5 rounds
- * 
- * Change ROUNDS for a different amount of rounds
+ * Play a game
  */
 function playGame() {
   let humanScore = 0,
       computerScore = 0;
-  
-  const ROUNDS = 5; // Change here round number
 
-  alert(`Rock, Paper, Scissors: try to beat the Computer in ${ROUNDS} rounds!`);
-
-  for (let i = 0; i < ROUNDS; i++) {
+  alert(`Rock, Paper, Scissors: try to beat the Computer!`);
 
 
-    const humanSelection = getHumanChoice(i + 1);
-    const computerSelection = getComputerChoice();
+  const humanSelection = getHumanChoice();
+  const computerSelection = getComputerChoice();
 
-    const roundWinner = playRound(humanSelection, computerSelection);
+  const roundWinner = playRound(humanSelection, computerSelection);
 
-    if (roundWinner === 'You') humanScore++;
-    else if(roundWinner === 'Computer') computerScore++;
-  }
+  if (roundWinner === 'You') humanScore++;
+  else if(roundWinner === 'Computer') computerScore++;
+
 
   printScore(humanScore, computerScore);
   printWinner(humanScore, computerScore);
