@@ -1,12 +1,16 @@
 # Rock Paper Scissors
-A simple console-based rock-paper-scissors game
+A simple rock-paper-scissors game
 
 ## Project description
-The game is implemented in JavaScript, using only the console interface for now (no GUI). This means that the result needs to be read in the console (for opening Ctrl+Shift+J or Cmd+Shift+J, or right-click developer tools and then go to the console tab. Mac users might have to enable developer tools).
+The game is implemented in JavaScript, using a simple GUI. A player is allowed to choose rock paper or scissors, clicking
+on the specific button, and the Computer (random choice) will play against him.
 
-Rounds are set to 5 (possible to change the ROUND variable in case from the code) and user input is taken with a console prompt. 
+It is a best of 5, so whenever either the player or the computer reaches 5 points the game stops (buttons are disabled),
+and there is a possibility to restart the game.
 
 ## Skills and technologies demonstrated
 - Simple JavaScript sintax understanding
 - Algorithmic approach to the problem
 - Clean code writing with separated functions and descriptive comments
+- DOM manipulation to create an interactive UI for the game
+- eventListener to control the flow of the game (and use of functions expressions)
