@@ -47,22 +47,24 @@ function getRandomInt(max) {
  */
 function playGame() {
   let humanScore = 0,
-      computerScore = 0;
+    computerScore = 0;
 
   alert(`Rock, Paper, Scissors: try to beat the Computer!`);
 
+  const choiceContainer = document.querySelector('#choice-container');
+  // Play one round as soon as one option is clicked
+  choiceContainer.addEventListener('click', (e) => {
+    const humanSelection = e.target.textContent.toLowerCase();
+    const computerSelection = getComputerChoice();
 
-  const humanSelection = getHumanChoice();
-  const computerSelection = getComputerChoice();
+    const roundWinner = playRound(humanSelection, computerSelection);
 
-  const roundWinner = playRound(humanSelection, computerSelection);
+    if (roundWinner === 'You') humanScore++;
+    else if(roundWinner === 'Computer') computerScore++;
 
-  if (roundWinner === 'You') humanScore++;
-  else if(roundWinner === 'Computer') computerScore++;
-
-
-  printScore(humanScore, computerScore);
-  printWinner(humanScore, computerScore);
+    printScore(humanScore, computerScore);
+    printWinner(humanScore, computerScore);
+  });
 
 
   /**
