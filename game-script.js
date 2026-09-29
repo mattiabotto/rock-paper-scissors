@@ -155,7 +155,6 @@ function playGame() {
   }
 
   function restartGame() {
-    console.log('Entered the restart function');
 
     // Remove restart button and final results
     for (let i = 0; i < 2; i++) {
@@ -163,7 +162,9 @@ function playGame() {
     }
     
     // Resetting the score UI
-    for (let child of resultsContainer.children) {
+    resultsContainer.firstChild.textContent = '';
+    const scores = document.querySelector('#scores');
+    for (child of scores.children) {
       child.textContent = '';
     }
 

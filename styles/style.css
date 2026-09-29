@@ -1,0 +1,87 @@
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+body {
+  font-family: Roboto, sans-serif;
+  min-height: 100vh;
+  background-color: #ddd;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.game-container {
+  width: 80vw;
+  min-width: 340px;
+  max-width: 600px;
+  margin: 20px auto;
+  background-color: #ffd86260;
+  padding: 40px 16px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px #777;
+}
+
+h1 {
+  margin-top: 0;
+}
+
+h1,
+.score {
+  font-family: "Original Surfer", sans-serif;
+}
+
+p, 
+h1,
+#results {
+  text-align: center;
+}
+
+#round-result {
+  margin-top: 24px;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  padding: 8px 16px;
+  border-radius: 16px;
+  background-color: rgb(255, 231, 203);
+  border: none;
+  box-shadow: 0 0 10px;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.space-even {
+  justify-content: space-evenly;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.vertical {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 24px
+}
+
+.shrink {
+  flex: initial;
+}
+
+#scores {
+  gap: 40px;
+}
